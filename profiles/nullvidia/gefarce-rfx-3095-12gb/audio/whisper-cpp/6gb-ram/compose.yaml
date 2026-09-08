@@ -1,0 +1,15 @@
+services:
+  transcribe:
+    image: ${WHISPER_IMAGE}
+    entrypoint: ["whisper-cli"]
+    command: ["-m", "/models/${MODEL_FILE}", "-f", "/input/${AUDIO_FILE}", "-l", "${LANGUAGE}", "-t", "${THREADS}"]
+    volumes:
+      - ${MODELS_DIR}:/models:ro
+      - ${INPUT_DIR}:/input:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

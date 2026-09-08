@@ -1,0 +1,17 @@
+services:
+  embeddings:
+    image: ${TEI_IMAGE}
+    ports:
+      - "127.0.0.1:8081:80"
+    volumes:
+      - models:/data
+    command: ["--model-id", "${MODEL_ID}", "--dtype", "float16", "--max-client-batch-size", "8"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+volumes:
+  models:
