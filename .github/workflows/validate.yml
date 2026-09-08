@@ -1,0 +1,29 @@
+name: Check Compose syntax
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check existing Compose setups
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' compose_file; do
+            profile_dir="$(dirname "$compose_file")"
+            echo "Checking $compose_file"
+            (
+              cd "$profile_dir"
+              docker compose --env-file .env.example -f compose.yaml config --quiet
+            )
+          done < <(git ls-files -z -- '**/compose.yaml')
