@@ -9,6 +9,7 @@ Share a setup that works for you, with configuration files and a short README. I
 | Hardware | Setups | Status |
 | --- | --- | --- |
 | [Nullvidia GeFarce RFX 3095 · 12 GB](profiles/nullvidia/gefarce-rfx-3095-12gb/) | LLM, diffusion, audio, vision, embeddings | Fictional 6 GB RAM example |
+| [Intel Arc Pro B60 Creator · 24 GB](profiles/intel/arc-pro-b60-creator-24gb/) | LLM (llama-swap, 11 models) | Real hardware, 16 GB RAM profile |
 
 Nullvidia is a temporary example profile, to be removed once real setups populate the catalog. Add yours following [CONTRIBUTING.md](CONTRIBUTING.md).
 
