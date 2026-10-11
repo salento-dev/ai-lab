@@ -2,7 +2,7 @@ services:
   llama-server:
     image: ${IMAGE}
     container_name: llama-server-bonsai
-    pull_policy: missing
+    pull_policy: if_not_present
     restart: unless-stopped
     tty: true
     deploy:

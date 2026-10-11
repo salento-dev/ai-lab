@@ -2,7 +2,7 @@ services:
   llama-swap:
     image: ${IMAGE}
     container_name: llama-swap
-    pull_policy: missing
+    pull_policy: if_not_present
     restart: unless-stopped
     tty: true
     deploy:
