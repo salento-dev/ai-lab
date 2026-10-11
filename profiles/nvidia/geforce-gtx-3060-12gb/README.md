@@ -30,8 +30,8 @@ Single-model variants of the owner's 10-model stack on the RTX 3060
 
 **LLM / llama-cpp-bonsai**
 
-- [Ternary Bonsai 2 27B (PQ2_0)](llm/llama-cpp-bonsai/32gb-ram/ternary-bonsai-2-27b/)
-- [Ternary Bonsai 2 27B Multimodal (PQ2_0)](llm/llama-cpp-bonsai/32gb-ram/ternary-bonsai-2-27b-visual/)
+- [Ternary Bonsai 2 27B (PQ2_0)](llm/llama-cpp-bonsai/8gb-ram/ternary-bonsai-2-27b/)
+- [Ternary Bonsai 2 27B Multimodal (PQ2_0)](llm/llama-cpp-bonsai/8gb-ram/ternary-bonsai-2-27b-visual/)
 
 ## Runtime notes
 
@@ -44,6 +44,8 @@ Single-model variants of the owner's 10-model stack on the RTX 3060
   Docker Hub from the private `llama-cpp-bonsai:cuda`). In the original
   stack the bonsai container was spawned via `docker run` from inside
   llama-swap; here it is a first-class service of the same compose.
+  The models are fully offloaded to the GPU (`-ngl 99`), so 8 GB of host
+  RAM is sufficient (tested on 32 GB).
 - Each stack is standalone and exposes port `11434` (Ollama-compatible
   endpoint). The original multi-model stack joined an external
   `ollama-network`; it is not reproduced here. Run one stack at a time.
