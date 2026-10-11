@@ -1,0 +1,24 @@
+services:
+  llama-server:
+    image: ${IMAGE}
+    container_name: llama-server-bonsai
+    pull_policy: missing
+    restart: unless-stopped
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ${MODELS_HOST_DIR}:/models:ro
+    ports:
+      - "11434:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
