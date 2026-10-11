@@ -12,6 +12,20 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    command:
+      - --model /models/${MODEL_DIR}/${MODEL_FILE}
+      - --host 0.0.0.0
+      - --port 8080
+      - -ngl 99
+      - -fa on
+      - -c 170000
+      - --cache-type-k q4_0
+      - --cache-type-v q4_0
+      - --temp 1.0
+      - --top-p 0.95
+      - -top-k 20
+      - -min-p 0.05
+      - --jinja
     volumes:
       - ${MODELS_HOST_DIR}:/models:ro
     ports:

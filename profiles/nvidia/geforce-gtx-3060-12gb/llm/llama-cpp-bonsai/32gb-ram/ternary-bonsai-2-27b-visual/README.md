@@ -6,10 +6,12 @@ host.
 
 ## Model
 
-- GGUF: `Ternary-Bonsai-2-27B-mmproj-Q8_0.gguf` - PQ2_0 (ternary quantization).
+- GGUF: `Ternary-Bonsai-2-27B-PQ2_0.gguf` - PQ2_0 (ternary quantization).
 - Source: Hugging Face (prism-ml/Ternary-Bonsai-2-27B-gguf).
 - Context: 150000 tokens.
 - GPU offload: all layers on GPU (`-ngl 99`), flash attention on.
+- Multimodal projection: `Ternary-Bonsai-2-27B-mmproj-Q8_0.gguf` (Q8_0).
+
 
 ## Run
 
@@ -30,6 +32,9 @@ curl http://localhost:11434/v1/chat/completions \
 
 ## Notes
 
+- The image has no default command to launch the model; the launch
+  command is defined in the `command:` field of compose.yaml, transcribed
+  from the owner's original `docker run`.
 - Standalone variant: in the owner's original stack the bonsai container
   was spawned from inside the llama-swap container via `docker run`
   (docker-in-docker, Docker socket mount). Here it is a first-class

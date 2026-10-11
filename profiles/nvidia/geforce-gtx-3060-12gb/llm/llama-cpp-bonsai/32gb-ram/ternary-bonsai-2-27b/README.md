@@ -11,6 +11,7 @@ host.
 - Context: 170000 tokens.
 - GPU offload: all layers on GPU (`-ngl 99`), flash attention on.
 
+
 ## Run
 
 ```bash
@@ -30,6 +31,9 @@ curl http://localhost:11434/v1/chat/completions \
 
 ## Notes
 
+- The image has no default command to launch the model; the launch
+  command is defined in the `command:` field of compose.yaml, transcribed
+  from the owner's original `docker run`.
 - Standalone variant: in the owner's original stack the bonsai container
   was spawned from inside the llama-swap container via `docker run`
   (docker-in-docker, Docker socket mount). Here it is a first-class
