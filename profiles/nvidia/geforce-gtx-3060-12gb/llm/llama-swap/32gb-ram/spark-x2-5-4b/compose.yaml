@@ -1,0 +1,50 @@
+services:
+  llama-swap:
+    image: ${IMAGE}
+    container_name: llama-swap
+    pull_policy: if_not_present
+    restart: unless-stopped
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    configs:
+      - source: llama-swap-config
+        target: /app/config.yaml
+    volumes:
+      - ${MODELS_HOST_DIR}:/models
+    ports:
+      - "11434:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+configs:
+  llama-swap-config:
+    content: |
+      healthCheckTimeout: 300
+      logLevel: info
+
+      models:
+        "spark-x2.5-4b":
+          cmd: >
+            /app/llama-server
+            --model /models/${MODEL_DIR}/${MODEL_FILE}
+            --host 0.0.0.0
+            --port $${PORT}
+            --n-gpu-layers 99
+            --flash-attn on
+            --ctx-size 131240
+            --parallel 1
+            --cache-type-k q8_0
+            --cache-type-v q8_0
+            --temp 0.7
+            --jinja
+          ttl: 300
